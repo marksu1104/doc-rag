@@ -1,0 +1,44 @@
+# Private competition inputs: local use only, never publish.
+/reference/
+/dataset/
+
+# Derived document text, embeddings, databases, and evaluation outputs.
+/database/
+/data/
+/artifacts/
+/outputs/
+/indexes/
+/storage/
+output*.json
+incorrect_answers*.json
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.faiss
+*.db
+*.sqlite
+*.sqlite3
+*.pdf
+
+# Legacy notebooks can contain private inputs in cells, outputs, or metadata.
+# Publish new notebooks only after an explicit content review and rule change.
+*.ipynb
+.ipynb_checkpoints/
+
+# Local environments, credentials, caches, and downloaded models.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.cache/
+.pytest_cache/
+.ruff_cache/
+/models/
+*.safetensors
+*.gguf
+*.pt
+*.pth
