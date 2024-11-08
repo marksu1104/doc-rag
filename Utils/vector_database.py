@@ -6,12 +6,14 @@ import chromadb
 from tqdm import tqdm
 import pdfplumber
 
-from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.node_parser import SentenceSplitter,SentenceWindowNodeParser
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.core import VectorStoreIndex, Document, StorageContext
+from llama_index.core import VectorStoreIndex, Document, StorageContext, get_response_synthesizer
+from llama_index.core import DocumentSummaryIndex
 from llama_index.core.callbacks import CallbackManager
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core.storage.docstore import SimpleDocumentStore
+
 
 
 class VectorDatabase:
@@ -29,6 +31,10 @@ class VectorDatabase:
         self.my_embedding = HuggingFaceEmbedding(
             model_name="TencentBAC/Conan-embedding-v1"
         )
+        
+        # self.model = HuggingFaceEmbedding(
+        #     model_name="taide/Llama3-TAIDE-LX-8B-Chat-Alpha1"
+        # )
         
         # Initialize ChromaDB client
         self.chroma_persist_client = chromadb.PersistentClient(db_path)
@@ -108,7 +114,7 @@ class VectorDatabase:
             pages = pdf.pages[page_infos[0]:page_infos[1]] if page_infos else pdf.pages
             return ''.join(page.extract_text() for page in pages if page.extract_text())
 
-    def insert_database(self, corpus_dict, category, chunk_size=256, chunk_overlap=100):
+    def insert_database(self, corpus_dict, category, chunk_size=256, chunk_overlap=200):
         # Prepare documents
         documents = [
             Document(
@@ -176,6 +182,9 @@ class VectorDatabase:
         return getattr(self, f'corpus_dict_{category}')
 
 
+
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some paths and files.')
     parser.add_argument('--question_path', type=str, required=True, help='Path to read questions')
@@ -186,3 +195,6 @@ if __name__ == "__main__":
     
     db = VectorDatabase(source_path=args.source_path)
     VectorDatabase.initialize_process(source_path=args.source_path)
+
+
+
