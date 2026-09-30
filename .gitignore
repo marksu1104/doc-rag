@@ -2,6 +2,12 @@
 /reference/
 /dataset/
 
+# Local archive of the historical prototype and private inputs.
+/legacy/
+
+# Private project documents: do not publish without explicit approval.
+/docs/
+
 # Derived document text, embeddings, databases, and evaluation outputs.
 /database/
 /data/

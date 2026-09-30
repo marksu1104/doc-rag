@@ -1,31 +1,42 @@
-[tool.poetry]
-name = "qa-rag"
-version = "0.1.0"
-description = ""
-authors = ["marksu901104 <marksu901104@gmail.com>"]
-readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.11"
-tqdm = "^4.66.6"
-jieba = "^0.42.1"
-pdfplumber = "^0.11.4"
-rank-bm25 = "^0.2.2"
-llama-index = "^0.11.20"
-sentence-transformers = "^3.2.1"
-llama-index-embeddings-huggingface = "^0.3.1"
-llama-index-retrievers-bm25 = "^0.4.0"
-llama-index-vector-stores-milvus = "^0.2.7"
-pymilvus = "^2.4.9"
-chroma = "^0.2.0"
-llama-index-vector-stores-chroma = "^0.2.1"
-protobuf = "==3.20.*"
-transformers = "^4.46.1"
-matplotlib = "^3.9.2"
-llama-index-readers-chroma = "^0.2.0"
-snownlp = "^0.12.3"
-
-
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "doc-rag"
+version = "0.1.0"
+description = "Local-first document analysis and retrieval experiments."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pdfplumber>=0.11.10,<0.12",
+    "pydantic>=2.7,<3",
+]
+
+[project.scripts]
+doc-rag = "doc_rag.cli:main"
+
+[dependency-groups]
+dev = [
+    "pip-audit>=2.7,<3",
+    "pytest>=9.0.3,<10",
+    "ruff>=0.9,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/doc_rag"]
+
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "README.md",
+    "pyproject.toml",
+    "src/doc_rag",
+]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
