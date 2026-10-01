@@ -25,6 +25,7 @@ incorrect_answers*.json
 *.db
 *.sqlite
 *.sqlite3
+*.indexes/
 *.pdf
 
 # Legacy notebooks can contain private inputs in cells, outputs, or metadata.

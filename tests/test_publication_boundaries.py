@@ -16,6 +16,7 @@ def test_private_and_generated_paths_are_ignored() -> None:
         "legacy/dataset/questions.json",
         "legacy/reference/example.pdf",
         "database/index.sqlite",
+        "custom.sqlite3.indexes/example/data.csc.index.npy",
         "outputs/report.json",
         "notebooks/example.ipynb",
         ".env",
